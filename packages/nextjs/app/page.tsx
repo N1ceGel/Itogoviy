@@ -100,44 +100,46 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#1d1f26] text-[#fafafa] py-10 px-5 font-sans">
-      <h1 className="text-5xl font-semibold text-center mb-12 text-[#ff9f00]">Decentralized Polling</h1>
+    <div className="min-h-screen bg-white text-black py-20 px-8">
+      <h1 className="text-5xl font-bold text-center mb-16 text-green-600">Decentralized Polling</h1>
 
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Create Poll Section */}
-        <div className="bg-[#2a2d38] p-6 rounded-xl shadow-xl border-2 border-[#393c46]">
-          <h2 className="text-3xl font-medium text-[#ff9f00] mb-6">Create Your Poll</h2>
-          <div className="space-y-5">
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+          <h2 className="text-3xl font-semibold text-green-600 mb-6">Create Your Poll</h2>
+          <div className="space-y-6">
             <input
               type="text"
               placeholder="Poll Title"
               value={pollName}
               onChange={e => setPollName(e.target.value)}
-              className="w-full p-4 bg-[#393c46] text-[#fafafa] border-2 border-[#4d5660] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff9f00]"
+              className="w-full p-4 bg-white text-black border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-opacity-70"
             />
             <input
               type="text"
               placeholder="Poll Options (comma-separated)"
               value={pollOptions}
               onChange={e => setPollOptions(e.target.value)}
-              className="w-full p-4 bg-[#393c46] text-[#fafafa] border-2 border-[#4d5660] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff9f00]"
+              className="w-full p-4 bg-white text-black border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-opacity-70"
             />
-            <button
-              onClick={handleCreatePoll}
-              className="w-full bg-[#ff9f00] text-[#1d1f26] py-3 rounded-lg hover:bg-[#ff7c00] transition"
-            >
-              Create Poll
-            </button>
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleCreatePoll}
+                className="w-full sm:w-1/2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300"
+              >
+                Create Poll
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Vote Section */}
-        <div className="bg-[#2a2d38] p-6 rounded-xl shadow-xl border-2 border-[#393c46]">
-          <h2 className="text-3xl font-medium text-[#ff9f00] mb-6">Cast Your Vote</h2>
-          <div className="space-y-5">
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+          <h2 className="text-3xl font-semibold text-green-600 mb-6">Cast Your Vote</h2>
+          <div className="space-y-6">
             <select
               onChange={e => setSelectedPollId(Number(e.target.value))}
-              className="w-full p-4 bg-[#393c46] text-[#fafafa] border-2 border-[#4d5660] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff9f00]"
+              className="w-full p-4 bg-white text-black border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
             >
               <option value="" disabled selected>
                 Select a poll to vote
@@ -150,15 +152,15 @@ export default function Home() {
             </select>
             {selectedPollId !== null && (
               <div>
-                <p className="text-lg font-semibold text-[#ff9f00]">Options:</p>
-                <ul className="list-disc list-inside space-y-2 text-[#b0b6b9]">
+                <p className="text-lg font-semibold text-green-600">Options:</p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600">
                   {polls[selectedPollId]?.options.map((option: string, index: number) => (
                     <li key={index}>
-                      {index}: {option}
+                      {index + 1}: {option}
                     </li>
                   ))}
                 </ul>
-                <p className="text-sm text-[#b0b6b9]">Poll End Time: {polls[selectedPollId]?.endTime}</p>
+                <p className="text-sm text-gray-500">Poll End Time: {polls[selectedPollId]?.endTime}</p>
               </div>
             )}
             <input
@@ -166,39 +168,43 @@ export default function Home() {
               placeholder="Option ID"
               value={selectedOption}
               onChange={e => setSelectedOption(Number(e.target.value))}
-              className="w-full p-4 bg-[#393c46] text-[#fafafa] border-2 border-[#4d5660] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff9f00]"
+              className="w-full p-4 bg-white text-black border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-opacity-70"
             />
-            <button
-              onClick={handleCastVote}
-              className="w-full bg-[#3b9f9b] text-[#1d1f26] py-3 rounded-lg hover:bg-[#007f7a] transition"
-            >
-              Cast Vote
-            </button>
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleCastVote}
+                className="w-full sm:w-1/2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300"
+              >
+                Cast Vote
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Results Section */}
-        <div className="bg-[#2a2d38] p-6 rounded-xl shadow-xl border-2 border-[#393c46]">
-          <h2 className="text-3xl font-medium text-[#ff9f00] mb-6">Poll Results</h2>
-          <div className="space-y-5">
+        <div className="bg-white p-8 rounded-xl shadow-lg border border-gray-200 col-span-2">
+          <h2 className="text-3xl font-semibold text-green-600 mb-6">Poll Results</h2>
+          <div className="space-y-6">
             {selectedPollId !== null && (
               <div>
-                <p className="text-lg font-semibold text-[#ff9f00]">Results for {polls[selectedPollId]?.name}:</p>
-                <ul className="list-disc list-inside space-y-2 text-[#b0b6b9]">
+                <p className="text-lg font-semibold text-green-600">Results for {polls[selectedPollId]?.name}:</p>
+                <ul className="list-disc list-inside space-y-2 text-gray-600">
                   {voteResults.map((result, index) => (
                     <li key={index}>
-                      Option {index}: {result} votes
+                      Option {index + 1}: {result} votes
                     </li>
                   ))}
                 </ul>
               </div>
             )}
-            <button
-              onClick={handleFetchVoteResults}
-              className="w-full bg-[#6a5d5f] text-[#fafafa] py-3 rounded-lg hover:bg-[#5e4e51] transition"
-            >
-              Fetch Results
-            </button>
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleFetchVoteResults}
+                className="w-full sm:w-1/2 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600 transition duration-300"
+              >
+                Fetch Results
+              </button>
+            </div>
           </div>
         </div>
       </div>
